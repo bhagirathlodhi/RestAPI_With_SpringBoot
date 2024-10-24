@@ -30,8 +30,8 @@ public class PostsController {
     }
 
     @GetMapping("/{postId}")
-    public Optional<Optional<Post>> getPost(@PathVariable Integer postId) throws PostNotFoundException {
-        return Optional.of(postService.findById(postId));//  .orElseThrow(() -> new PostNotFoundException(postId)));
+    public Optional<Post> getPost(@PathVariable Integer postId) throws PostNotFoundException {
+        return Optional.of(postService.findById(postId)  .orElseThrow(() -> new PostNotFoundException(postId)));
     }
 
     @GetMapping

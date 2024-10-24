@@ -24,7 +24,7 @@ public class Post {
     private   String post_title;
     private String post_content;
 
-//    transient private List<Comment> comments;
+    transient private List<Comment> comments;
 
 
 
