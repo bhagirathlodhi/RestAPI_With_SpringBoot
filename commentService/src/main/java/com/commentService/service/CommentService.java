@@ -11,4 +11,6 @@ public interface CommentService {
     Optional<Comment> findById(Integer commentId);
 
     List<Comment> loadAll(Integer postId);
+
+    List<Comment> findByAuthor(String author);
 }

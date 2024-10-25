@@ -48,5 +48,13 @@ public class CommentController {
         return commentService.loadAll(postId);
     }
 
+    // Find by auther   ----------------------------------------
+
+    @GetMapping("/author/{author}")
+    public List<Comment> getCommentsAuthor(@PathVariable String author) {
+        System.out.println("Hello i am from Author Action");
+        return commentService.findByAuthor(author);
+    }
+
 
 }

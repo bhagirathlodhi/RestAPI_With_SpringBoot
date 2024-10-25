@@ -8,13 +8,14 @@ import java.time.LocalDate;
 
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CommentserviceImpl implements CommentService {
 
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
 
     public CommentserviceImpl(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
@@ -39,5 +40,11 @@ public class CommentserviceImpl implements CommentService {
         List<Comment> comments = commentRepository.findByPostId(postId);
       System.out.println(comments.size()+ ": ::::::::::::::>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return comments;
+    }
+
+    @Override
+    public List<Comment> findByAuthor(String author) {
+        List<Comment> auComments =commentRepository.findByAuthor(author);
+        return auComments;
     }
 }
