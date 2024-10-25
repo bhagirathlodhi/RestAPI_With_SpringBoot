@@ -6,10 +6,11 @@ import com.commentService.service.CommentService;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/{comment}")
+@RequestMapping("/post/comment")
 public class CommentController {
 
     private CommentService commentService;
@@ -34,9 +35,17 @@ public class CommentController {
         return response;
     }
 
-    @GetMapping("/{commentId}")
-    public Optional<Comment> getComment(@PathVariable Integer commentId) {
-        return commentService.findById(commentId);
+//    @GetMapping("/{commentId}")
+//    public Optional<Comment> getComment(@PathVariable Integer commentId) {
+//        return commentService.findById(commentId);
+//    }
+
+    // Fetch all the comment
+
+    @GetMapping("/{postId}")
+    public List<Comment> getComments(@PathVariable Integer postId) {
+        System.out.println("Hello from coment Controller>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        return commentService.loadAll(postId);
     }
 
 

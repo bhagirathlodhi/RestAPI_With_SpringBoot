@@ -1,5 +1,6 @@
 package com.posts.services.imp;
 import com.posts.Entity.Post;
+import com.posts.exception.PostNotFoundException;
 import com.posts.repository.PostRepo;
 import com.posts.services.CommentClient;
 import com.posts.services.PostService;
@@ -17,11 +18,11 @@ import java.util.stream.Collectors;
 public class ServiceIMPL implements PostService {
 
     private PostRepo postRepo;
-//    private CommentClient commentClient;
+    private CommentClient commentClient;
 
-    public ServiceIMPL(PostRepo postRepo) {
+    public ServiceIMPL(PostRepo postRepo, CommentClient commentClient) {
         this.postRepo = postRepo;
-//        this.commentClient = commentClient;
+        this.commentClient = commentClient;
     }
 
     @Override
@@ -31,24 +32,26 @@ public class ServiceIMPL implements PostService {
 
     @Override
     public Optional<Post> findById(Integer postId) {
-        return postRepo.findById(postId);
+        Post post = postRepo.findById(postId).orElseThrow(() -> new PostNotFoundException("Post not found"));
+      post.setComments(commentClient.getCommentOfPost(post.getPost_id()));
+      return Optional.of(post);
+    }
+
+    @Override
+    public List<Post> allPost() {
+        List<Post> postComment =  postRepo.findAll();
+
+        List<Post> newPostComment =  postComment.stream().map(post -> {
+            post.setComments(commentClient.getCommentOfPost(post.getPost_id()));
+            return post;
+        }).collect(Collectors.toList());
+        return newPostComment;
     }
 
 //    @Override
 //    public List<Post> allPost() {
-//        List<Post> postComment =  postRepo.findAll();
-//
-//        List<Post> newPostComment =  postComment.stream().map(post -> {
-//            post.setComments(commentClient.getCommentOfPost(post.getPost_id()));
-//            return post;
-//        }).collect(Collectors.toList());
-//        return newPostComment;
+//        return postRepo.findAll();
 //    }
-
-    @Override
-    public List<Post> allPost() {
-        return postRepo.findAll();
-    }
 
 
 

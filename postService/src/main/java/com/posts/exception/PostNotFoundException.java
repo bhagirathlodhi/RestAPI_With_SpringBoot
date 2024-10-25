@@ -2,7 +2,7 @@ package com.posts.exception;
 public class PostNotFoundException extends RuntimeException {
 
 
-    public PostNotFoundException(Integer postId) {
+    public PostNotFoundException(String postId) {
         super("Post not found with ID: " + postId);
     }
 

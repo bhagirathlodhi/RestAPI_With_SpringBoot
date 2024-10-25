@@ -31,7 +31,7 @@ public class PostsController {
 
     @GetMapping("/{postId}")
     public Optional<Post> getPost(@PathVariable Integer postId) throws PostNotFoundException {
-        return Optional.of(postService.findById(postId)  .orElseThrow(() -> new PostNotFoundException(postId)));
+        return Optional.of(postService.findById(postId)  .orElseThrow(() -> new PostNotFoundException(" not found")));
     }
 
     @GetMapping
@@ -48,7 +48,8 @@ public class PostsController {
         }).orElseGet(() -> {
             return null;
         });
-//
+
+
     }
 
     @DeleteMapping("/{postId}")
